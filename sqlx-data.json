@@ -1,0 +1,156 @@
+{
+  "db": "PostgreSQL",
+  "3512c6aa69b21ccc0312f3d6e51237fbfb44edfac4557fab8f93ed92a827aa6b": {
+    "query": "\nSELECT exists(\n    SELECT 1\n    FROM player\n    WHERE id = $1\n)\nAS \"exists\"\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "exists",
+          "type_info": "Bool"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      },
+      "nullable": [
+        null
+      ]
+    }
+  },
+  "95205bf41616ca9a991d57cc22a6e3f3341c77359e005f169b292503e6f9ebc0": {
+    "query": "\nDELETE FROM player\nWHERE id = $1\n            ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      },
+      "nullable": []
+    }
+  },
+  "9a5c1de68dd3567dd7d4a05bbb8ab1c2853fa4355276f0301afb58bc23c36a0c": {
+    "query": "\nSELECT dungeon_cooldown, has_character\nFROM player\nWHERE id = $1\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "dungeon_cooldown",
+          "type_info": "Timestamptz"
+        },
+        {
+          "ordinal": 1,
+          "name": "has_character",
+          "type_info": "Bool"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      },
+      "nullable": [
+        true,
+        false
+      ]
+    }
+  },
+  "9b4632d79ff9a99108074e01ca59a791d8b9156bd21669077123d83ee3c718d0": {
+    "query": "\nSELECT\n    strength as \"strength!\",\n    dexterity as \"dexterity!\",\n    constitution as \"constitution!\",\n    intelligence as \"intelligence!\",\n    wisdom  as \"wisdom!\",\n    charisma as \"charisma!\",\n    luck as \"luck!\"\nFROM player\nWHERE id = $1\n            ",
+    "describe": {
+      "columns": [
+        {
+          "ordinal": 0,
+          "name": "strength!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 1,
+          "name": "dexterity!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 2,
+          "name": "constitution!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 3,
+          "name": "intelligence!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 4,
+          "name": "wisdom!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 5,
+          "name": "charisma!",
+          "type_info": "Int2"
+        },
+        {
+          "ordinal": 6,
+          "name": "luck!",
+          "type_info": "Int2"
+        }
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      },
+      "nullable": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "b755852992eef69aed9208b220ce1047061973ea2213b6788e2cbd34482075dd": {
+    "query": "\nINSERT INTO player\n(\n    id,\n    strength,\n    dexterity,\n    constitution,\n    intelligence,\n    wisdom,\n    charisma,\n    luck,\n    has_character,\n    race,\n    class\n)\nVALUES (\n    $1,\n    $2,\n    $3,\n    $4,\n    $5,\n    $6,\n    $7,\n    $8,\n    true,\n    $9,\n    $10\n)\n            ",
+    "describe": {
+      "columns": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int2",
+          "Int2",
+          "Int2",
+          "Int2",
+          "Int2",
+          "Int2",
+          "Int2",
+          {
+            "Custom": {
+              "name": "race",
+              "kind": {
+                "Enum": [
+                  "human"
+                ]
+              }
+            }
+          },
+          {
+            "Custom": {
+              "name": "class",
+              "kind": {
+                "Enum": [
+                  "fighter"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "nullable": []
+    }
+  }
+}
