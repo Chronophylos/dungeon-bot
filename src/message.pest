@@ -1,0 +1,10 @@
+message = _{ prefix ~ command ~ arguments? ~ EOI }
+prefix = { PUNCTUATION | SYMBOL }
+command = @{ word }
+arguments = _{ argument* }
+argument = @{ word }
+word = { ( LETTER | NUMBER | SYMBOL | PUNCTUATION )+ }
+
+
+WHITESPACE = _{ ( " " | chatterino_special_char ) }
+chatterino_special_char = _{ "\u{E0000}" }

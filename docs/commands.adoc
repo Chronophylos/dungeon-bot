@@ -1,0 +1,111 @@
+= Commands
+Nikolai Zimmermann
+:toc:
+:icons: font
+
+About commands
+
+Commands consist of a prefix and the command name as well as additional
+arguments. They are separated by one or more whitespaces. The prefix does not
+need to be separated by a whitespace. The default prefix is `>`.
+
+.where `\w` is any whitespace
+----
+PREFIX \w* COMMAND [\w+ ARGUMENT]
+----
+
+== Bot specific Commands
+
+=== Bot
+
+NOTE: This is the only command that also works with `!` as prefix
+
+.Example
+----
+> bot
+----
+
+Get information about the bot, describing what this bot is. Conforming to level
+3 of supinics _Make-a-bot_ program.
+
+=== Help
+
+[none]
+* Alias: `commands`
+
+.Example
+----
+> help
+----
+
+Get help about command usage and a link to the documentation.
+
+=== Source code
+
+[none]
+* Alias: `source`
+
+.Example
+----
+> repo
+----
+
+Get a link to the source code.
+
+== Registering
+
+To be able to play the game you need to register. You can also unregister and
+delete your character.
+
+=== Register
+
+.Example
+----
+> register
+----
+
+This registers you with the bot and creates a new character. In the future you
+will also be able to choose a class and race for your new character.
+
+=== Unregister
+
+IMPORTANT: This will delete your character and your progress
+
+.Example
+----
+> unregister confirm
+----
+
+With this command you can unregister from the bot.
+
+The first argument is required.
+
+== Enter the Dungeon
+
+[none]
+* Alias: `e`
+* Cooldown: `1h`
+
+
+NOTE: You need to register first before you can use this command
+
+.Examples
+----
+> enter
+>e
+----
+
+Enter the dungeon. Everytime you do this you will have an encounter. This can
+be a fight or an event (see link:encounters.html[Encounters]).
+
+== Informative Commands
+
+Commands used to get information about your character or others characters.
+
+=== Check Level
+
+=== Check Stats
+
+=== Check Equipment
+
+== Duel

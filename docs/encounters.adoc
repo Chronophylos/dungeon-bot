@@ -1,0 +1,55 @@
+= Encounters
+Nikolai Zimmermann
+
+Events when a player enters the dungeon
+
+Every time a player enters the dungeon an encounter will occur. These
+encounters can be fights or other events. At the end of every encounter the
+player will receive a reward.
+
+Encounters have a level wich defines how hard it will be this is called
+_Challenge Rating_ (CR).
+
+== Fights
+
+Fights consist of a party of enemies and the player. At the start initiatives
+are rolled to build a initiative-list.
+
+=== Ambush
+
+If a fight is considered an ambush, one side has a free first round.
+
+=== Enemies
+
+The enemy party is made up of entries from a list of possible opponents. These
+lists consist of thematically and strength wise similar characters.
+
+== Events
+
+Events can be skillcheck-based, chance-based or have a fixed result.
+
+=== Special Events
+
+Coded events not available in the database. Examples:
+
+* Random bible verse from link:https://bible-api.com/[bible-api.com]
+
+== Rewards
+
+Rewards depend on the result of an encounter. If the player is successful the
+reward is better, than if the encounter is considered a loss.
+
+=== Reward Levels
+
+Rewards are split into three levels. Small, medium and big Rewards.
+
+The Reward Level depends on the difference between the encounters CR and the
+players Level.
+
+|===
+| CR vs Player Level | Reward Level
+
+| CR is lower than Player Level | Small Reward
+| CR is similar to Player Level | Medium Reward
+| CR is higher than Player Level | Big Reward
+|===

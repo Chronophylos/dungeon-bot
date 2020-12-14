@@ -143,14 +143,16 @@ WHERE id = $1
         .fetch_one(self.pool)
         .await?;
 
-        Ok(CharacterStats {
-            strength: rec.strength,
-            dexterity: rec.dexterity,
-            constitution: rec.constitution,
-            intelligence: rec.intelligence,
-            wisdom: rec.wisdom,
-            charisma: rec.charisma,
-            luck: rec.luck,
-        })
+        todo!()
+
+        //Ok(CharacterStats {
+        //    strength: rec.strength,
+        //    dexterity: rec.dexterity,
+        //    constitution: rec.constitution,
+        //    intelligence: rec.intelligence,
+        //    wisdom: rec.wisdom,
+        //    charisma: rec.charisma,
+        //    luck: rec.luck,
+        //})
     }
 }

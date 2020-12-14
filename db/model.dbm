@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="4"
+<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="298,0" last-zoom="1" max-obj-count="6"
 	 default-schema="public">
 <database name="dungeon" is-template="false" allow-conns="true">
 </database>
@@ -18,12 +18,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <usertype name="class" configuration="enumeration">
 	<schema name="public"/>
-	<enumeration values="fighter"/>
+	<enumeration values="figher"/>
 </usertype>
 
-<table name="player" layer="0" collapse-mode="2" max-obj-count="14" z-value="0">
+<table name="player" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="public"/>
-	<position x="980" y="240"/>
+	<position x="1000" y="120"/>
 	<column name="id" not-null="true">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[equals twitch user id]]></comment>
@@ -32,39 +32,175 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="timestamptz" length="0"/>
 		<comment><![CDATA[When the dungeon cooldown is reset]]></comment>
 	</column>
-	<column name="race">
-		<type name="public.race" length="0"/>
-	</column>
-	<column name="class">
-		<type name="public.class" length="0"/>
-	</column>
-	<column name="strength">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="dexterity">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="constitution">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="intelligence">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="wisdom">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="charisma">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="luck">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="has_character" not-null="true" default-value="false">
-		<type name="bool" length="0"/>
-	</column>
 	<constraint name="player_pk" type="pk-constr" table="public.player">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<table name="character" layer="0" collapse-mode="2" max-obj-count="14" z-value="0">
+	<schema name="public"/>
+	<position x="1020" y="440"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="level" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="experience" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="race" not-null="true">
+		<type name="public.race" length="0"/>
+	</column>
+	<column name="class" not-null="true">
+		<type name="public.class" length="0"/>
+	</column>
+	<column name="strength" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="dexterity" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="constitution" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="intelligence" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="wisdom" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="charisma" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="luck" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="character_pk" type="pk-constr" table="public.&quot;character&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="player_has_one_character" type="rel11" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c3805e"
+	 src-table="public.&quot;character&quot;"
+	 dst-table="public.player"
+	 src-required="false" dst-required="false"
+	del-action="CASCADE">
+	<label ref-type="name-label">
+		<position x="3.68262" y="-7.62227"/>
+	</label>
+</relationship>
+
+<table name="encounter" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<position x="1540" y="200"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar" length="16"/>
+	</column>
+	<column name="min_level">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="max_level">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="encounter_pk" type="pk-constr" table="public.encounter">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="event" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<position x="1720" y="560"/>
+	<column name="win_chance">
+		<type name="numeric" length="3" precision="2"/>
+	</column>
+	<column name="required_skill">
+		<type name="varchar" length="3"/>
+	</column>
+	<column name="required_skill_level">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="win_text">
+		<type name="varchar" length="300"/>
+	</column>
+	<column name="loose_text">
+		<type name="varchar" length="300"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_encounter" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="encounter_fk" index="1"/>
+		<object name="event_pk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="event_is_an_encounter" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#77f770"
+	 src-table="public.encounter"
+	 dst-table="public.event"
+	 src-required="true" dst-required="false"
+	del-action="CASCADE">
+	<label ref-type="name-label">
+		<position x="19.0283" y="-32.7323"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<table name="fight" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<position x="1380" y="560"/>
+
+	<customidxs object-type="column">
+		<object name="id_encounter" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="encounter_fk" index="1"/>
+		<object name="fight_pk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="fight_is_an_encounter" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#01dcce"
+	 src-table="public.encounter"
+	 dst-table="public.fight"
+	 src-required="true" dst-required="false"
+	del-action="CASCADE">
+	<label ref-type="name-label">
+		<position x="2.14626" y="-32.7323"/>
+	</label>
+	<special-pk-cols indexes="0"/>
+</relationship>
+
+<relationship name="many_fights_have_a_character_pool" type="relnn" layer="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#a828c7"
+	 src-table="public.fight"
+	 dst-table="public.&quot;character&quot;"
+	 src-required="false" dst-required="false"
+	 table-name="fight_character_pool">
+	<label ref-type="name-label">
+		<position x="-12.7399" y="5.40385"/>
+	</label>
+</relationship>
 
 </dbmodel>

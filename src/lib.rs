@@ -1,10 +1,12 @@
-#![feature(proc_macro_hygiene, decl_macro)]
 #![forbid(unsafe_code)]
+#![warn(clippy::pedantic)]
 
 mod character;
 mod config;
-pub mod db;
+mod dice;
 
 pub mod bot;
+pub mod db;
 
 pub use config::Config;
+pub use dice::{Dice, D10, D20, D6};
