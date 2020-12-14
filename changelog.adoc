@@ -1,0 +1,14 @@
+= Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog],
+and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
+
+== link:https://github.com/Chronophylos/dungeon-bot/compare/edef5f8854566c7e49cbc1ae985cf57db5c36eb9%E2%80%A6HEAD[Unreleased] 
+
+=== Added
+
+* Twitch frontend with commands
+* Documentation
+
