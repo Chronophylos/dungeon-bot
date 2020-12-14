@@ -4,6 +4,8 @@ version = "0.1.0"
 authors = ["Chronophylos <nikolai@chronophylos.com>"]
 edition = "2018"
 repository = "https://github.com/Chronophylos/dungeon-bot"
+license = "MIT"
+license-file = "MIT-LICENSE"
 
 [dependencies]
 anyhow = "1.0.34"
