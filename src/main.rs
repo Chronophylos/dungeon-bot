@@ -2,22 +2,29 @@
 #![warn(clippy::pedantic)]
 
 use anyhow::{anyhow, Context, Result};
+use chrono::{DateTime, FixedOffset, NaiveDateTime, Utc};
 use dungeon_bot::{
     bot::{Args, Bot},
     db::Player,
     Config,
 };
+use lazy_static::lazy_static;
 use log::LevelFilter;
 use simple_logger::SimpleLogger;
 use smol::future::FutureExt as _;
 use sqlx::{postgres::PgPoolOptions, PgPool};
 use std::time::Duration;
+use std::time::Instant;
 use twitchchat::PrivmsgExt as _;
 
 const PREFIX: char = '>';
 const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 const APP_NAME: &str = env!("CARGO_PKG_NAME");
 const APP_REPO: &str = env!("CARGO_PKG_REPOSITORY");
+
+lazy_static! {
+    static ref BOOT_TIME: Instant = Instant::now();
+}
 
 fn register(args: Args, pool: &PgPool) -> Result<()> {
     let uid = args.user_id()?;
@@ -107,7 +114,31 @@ fn enter(args: Args, pool: &PgPool) -> Result<()> {
     Ok(())
 }
 
+fn ping(args: Args) -> Result<()> {
+    let latency = args
+        .raw
+        .tmi_sent_ts()
+        .map(|ts| NaiveDateTime::from_timestamp(ts as i64, 0))
+        .map(|time| time.signed_duration_since(Utc::now().naive_utc()))
+        .map(|duration| duration.to_string())
+        .unwrap_or(String::from("unknown"));
+
+    args.writer.reply(
+        args.raw,
+        &format!(
+            "| Uptime: {:?} Message Latency: {}",
+            Instant::now().duration_since(*BOOT_TIME),
+            latency
+        ),
+    )?;
+
+    Ok(())
+}
+
 fn main() -> Result<()> {
+    // evaluate boot time
+    let _ = *BOOT_TIME;
+
     SimpleLogger::new().with_level(LevelFilter::Debug).init()?;
 
     let config = Config::load("config.ron")?;
@@ -157,6 +188,7 @@ fn main() -> Result<()> {
                 .reply(args.raw, "this command is not yet implemented")?;
             Ok(())
         })
+        .with_command("ping", Vec::new(), ping)
         .with_command("repo", vec!["source"], |args: Args| {
             args.writer.reply(
                 args.raw,

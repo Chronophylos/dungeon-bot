@@ -3,5 +3,6 @@ Nikolai Zimmermann
 
 Documentation for Dungeon Bot
 
-* link:commands.adoc[Commands]
-* link:encounters.adoc[Encounters]
+* link:commands.html[Commands]
+* link:encounters.html[Encounters]
+* link:fights.html[Fights]

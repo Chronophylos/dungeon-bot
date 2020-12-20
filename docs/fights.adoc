@@ -1,0 +1,57 @@
+= Fights
+Nikolai Zimmermann
+
+== Concepts
+
+=== DnD-like
+
+My first idea was to use a system similair to DnD with rather complex fighting
+rules. The <<diagram-concept-dnd-like>> shows a simplified version of an
+attack in DnD. This could be simplified further by removing criticals when a 20 is rolled.
+
+.State Diagram for DnD-like fights
+[[diagram-concept-dnd-like]]
+[plantuml, diagram-fights-concept-dnd-like, svg]
+....
+state "Roll Attack" as attack
+attack : attack_roll = d20.roll()
+attack : attack = attack_roll + attacker.attack_modifier
+attack : armor_class = target.armor_class
+
+state "Roll Damage" as damage
+attack : rolled_damage = attacker.roll_damage()
+
+state "Apply Damage" as hurt
+hurt : target.apply_damage(damage)
+
+[*] --> attack
+attack --> damage : [attack_roll > armor_class]
+attack --> [*] : [attack_roll <= armor_class]
+damage --> hurt : [attack_roll == 20] / damage = rolled_damage * 2
+damage --> hurt : [attack_roll < 20] / damage = rolled_damage
+hurt -> [*]
+....
+
+This fight system goes hand in hand with the more complex attribute system with
+6 different attributes. I personally like that system and want to keep it.
+
+=== Attack and Defense
+
+The next idea builds upon the previous. Removin criticals and guarateeing hits
+removes a lot of complexity that the player never would've experienced anyway.
+
+.State Diagram for the second concept
+[[diagram-concept-second]]
+[plantuml, diagram-fights-concept-second, svg]
+....
+state "Roll Damage" as damage
+damage : damage = attacker.roll_damage()
+
+state "Apply Damage" as hurt
+hurt : adjusted_damage = damage * target.resistance()
+hurt : target.apply_damage(adjusted_damage)
+
+[*] --> damage
+damage --> hurt
+hurt --> [*]
+....

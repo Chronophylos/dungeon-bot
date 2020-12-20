@@ -52,6 +52,15 @@ Get help about command usage and a link to the documentation.
 
 Get a link to the source code.
 
+=== Ping the bot
+
+.Example
+----
+> ping
+----
+
+Ping the bot and display some information.
+
 == Registering
 
 To be able to play the game you need to register. You can also unregister and
